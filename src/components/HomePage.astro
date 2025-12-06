@@ -2,6 +2,7 @@
 import { PROFILE } from "../consts";
 import { getCollection } from "astro:content";
 import avatarImg from "../assets/avatar.jpg";
+import keepInTouchImg from "../assets/keep-in-touch.png";
 
 const experiences = (await getCollection("experience"))
   .sort((a, b) => a.data.order - b.data.order);
@@ -162,6 +163,24 @@ const interviews = (await getCollection("interviews"))
         </div>
       </a>
     ))}
+  </div>
+
+  <!-- Keep in touch section -->
+  <div class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        Keep in touch
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    <a href="/contact" class="post-item">
+      <img src={keepInTouchImg.src} alt="Keep in touch" />
+      <div class="post-overlay">
+        <span class="post-overlay-content">Let's connect!</span>
+      </div>
+    </a>
   </div>
 </main>
 

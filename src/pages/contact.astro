@@ -1,0 +1,306 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import HomePage from '../components/HomePage.astro';
+import avatarImg from '../assets/avatar.jpg';
+import keepInTouchImg from '../assets/keep-in-touch.png';
+import { PROFILE } from '../consts';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Contact Alex" description="Send me a message" />
+  </head>
+  <body>
+    <HomePage />
+
+    <div class="modal-overlay">
+      <div class="modal-container">
+        <a href="/" class="modal-close" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </a>
+        <div class="modal-content">
+          <div class="modal-image">
+            <img src={keepInTouchImg.src} alt="Keep in touch" width={600} height={600} />
+          </div>
+          <div class="modal-details">
+            <header class="modal-header">
+              <div class="modal-avatar">
+                <img src={avatarImg.src} alt={PROFILE.name} />
+              </div>
+              <div class="modal-author">
+                <span class="modal-title">Alex 🤝 YOU</span>
+                <span class="modal-subtitle">I'll get back soon!</span>
+              </div>
+            </header>
+            <div class="modal-body">
+              <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                  <label for="subject">Subject</label>
+                  <input type="text" id="subject" name="subject" required placeholder="Subject" />
+                </div>
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" required placeholder="What's on your mind?" rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                  Open mail app
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const email = 'alexander.jurik@outlook.com';
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const subjectInput = formData.get('subject') as string;
+    const message = formData.get('message') as string;
+
+    const subject = encodeURIComponent(`${subjectInput}`);
+    const body = encodeURIComponent(`${message}`);
+
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  });
+</script>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .modal-container {
+    position: relative;
+    max-width: 90vw;
+    width: 900px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+    text-decoration: none;
+  }
+
+  .modal-close:hover {
+    opacity: 0.7;
+  }
+
+  .modal-content {
+    display: flex;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+    max-height: 85vh;
+  }
+
+  .modal-image {
+    flex: 1;
+    min-width: 0;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .modal-details {
+    width: 380px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--border-color);
+    max-height: 85vh;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    flex-shrink: 0;
+  }
+
+  .modal-avatar {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .modal-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .modal-author {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .modal-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+
+  .modal-subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 14px;
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--link-color);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .submit-btn {
+    background: var(--link-color);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 900px) {
+    .modal-overlay {
+      padding: 0;
+    }
+
+    .modal-container {
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-close {
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .modal-content {
+      flex-direction: column;
+      max-height: 100vh;
+      height: 100%;
+      border-radius: 0;
+    }
+
+    .modal-image {
+      height: 40vh;
+      flex: none;
+    }
+
+    .modal-details {
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+      max-height: none;
+      flex: 1;
+    }
+  }
+</style>
