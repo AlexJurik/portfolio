@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import Post from '../../layouts/Post.astro';
+
+export async function getStaticPaths() {
+  const interviews = await getCollection('interviews');
+  return interviews.map((exp) => ({
+    params: { slug: exp.id },
+    props: exp,
+  }));
+}
+
+const interviews = Astro.props;
+const { Content } = await render(interviews);
+---
+
+<Post
+  title={`Alex 🔊 ${interviews.data.name}`}
+  date={interviews.data.date}
+  logo={interviews.data.logo}
+  links={interviews.data.links}
+>
+  <Content />
+</Post>

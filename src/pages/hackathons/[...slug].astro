@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import Post from '../../layouts/Post.astro';
+
+export async function getStaticPaths() {
+  const hackathons = await getCollection('hackathons');
+  return hackathons.map((exp) => ({
+    params: { slug: exp.id },
+    props: exp,
+  }));
+}
+
+const hackathons = Astro.props;
+const { Content } = await render(hackathons);
+---
+
+<Post
+  title={`Alex 🚀 ${hackathons.data.name}`}
+  date={hackathons.data.date}
+  logo={hackathons.data.logo}
+  links={hackathons.data.links}
+>
+  <Content />
+</Post>

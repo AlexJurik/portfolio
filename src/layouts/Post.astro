@@ -1,0 +1,284 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+import HomePage from '../components/HomePage.astro';
+import avatarImg from '../assets/avatar.jpg';
+import { PROFILE } from '../consts';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  date: string;
+  logo: ImageMetadata;
+  links: Array<{ url: string; label: string }>;
+}
+
+const { title, subtitle, date, logo, links } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={`${title}`} description={subtitle ? `${subtitle} at ${title}` : title} image={logo} />
+  </head>
+  <body>
+    <HomePage />
+
+    <div class="modal-overlay">
+      <div class="modal-container">
+        <a href="/" class="modal-close" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </a>
+        <div class="modal-content">
+          <div class="modal-image">
+            <Image src={logo} alt={title} width={600} height={600} />
+          </div>
+          <div class="modal-details">
+            <header class="modal-header">
+              <div class="modal-avatar">
+                <img src={avatarImg.src} alt={PROFILE.name} />
+              </div>
+              <div class="modal-author">
+                <span class="modal-company">{title}</span>
+                <span class="modal-period">{date}</span>
+              </div>
+            </header>
+            <div class="modal-body">
+              <div class="modal-description">
+                {subtitle && (
+                  <span class="modal-author-inline">
+                    <strong>{subtitle}</strong>
+                  </span>
+                )}
+                <div class="markdown-content">
+                  <slot />
+                </div>
+              </div>
+            </div>
+            <footer class="modal-footer">
+              {links.map((link) => (
+                <a href={link.url} class="modal-company-web" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                       stroke-linejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                  </svg>
+                  {link.label}
+                </a>
+              ))}
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .modal-container {
+    position: relative;
+    max-width: 90vw;
+    width: 1100px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+    text-decoration: none;
+  }
+
+  .modal-close:hover {
+    opacity: 0.7;
+  }
+
+  .modal-content {
+    display: flex;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+    max-height: 85vh;
+  }
+
+  .modal-image {
+    flex: 1;
+    min-width: 0;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .modal-details {
+    width: 340px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--border-color);
+    max-height: 85vh;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    flex-shrink: 0;
+  }
+
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    flex-shrink: 0;
+  }
+
+  .modal-avatar {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .modal-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .modal-author {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .modal-company {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+
+  .modal-period {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+  }
+
+  .modal-company-web {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--link-color);
+    font-weight: 600;
+  }
+
+  .modal-company-web svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .modal-description {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .modal-author-inline {
+    color: var(--text-primary);
+    margin-right: 4px;
+  }
+
+  .markdown-content {
+    margin-top: 8px;
+    color: var(--text-secondary);
+  }
+
+  .markdown-content :global(p) {
+    margin: 0 0 12px 0;
+  }
+
+  .markdown-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .markdown-content :global(h3) {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 16px 0 8px 0;
+  }
+
+  .markdown-content :global(ul) {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .markdown-content :global(li) {
+    margin-bottom: 4px;
+  }
+
+  .markdown-content :global(strong) {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .modal-content {
+      flex-direction: column;
+      max-height: 90vh;
+    }
+
+    .modal-image {
+      height: 300px;
+      flex: none;
+    }
+
+    .modal-details {
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+      max-height: calc(90vh - 300px);
+    }
+  }
+</style>

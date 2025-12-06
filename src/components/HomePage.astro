@@ -1,0 +1,378 @@
+---
+import { PROFILE } from "../consts";
+import { getCollection } from "astro:content";
+import avatarImg from "../assets/avatar.jpg";
+
+const experiences = (await getCollection("experience"))
+  .sort((a, b) => a.data.order - b.data.order);
+const hackathons = (await getCollection("hackathons"))
+  .sort((a, b) => a.data.order - b.data.order);
+const sideProjects = (await getCollection("sideProjects"))
+  .sort((a, b) => a.data.order - b.data.order);
+const interviews = (await getCollection("interviews"))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<main class="profile-container" transition:persist="home-content">
+  <!-- Profile Header -->
+  <header class="profile-header">
+    <div class="avatar-wrapper">
+      <img src={avatarImg.src} alt={PROFILE.name} class="avatar" />
+    </div>
+
+    <div class="profile-info">
+      <h1 class="username"><b>{PROFILE.name}</b></h1>
+
+      <div class="profile-stats">
+        <div class="stat">
+          <b>{PROFILE.stats.experiences}</b>
+          <span> years of experience</span>
+        </div>
+        <div class="stat">
+          <b>{PROFILE.stats.projects}</b>
+          <span> projects</span>
+        </div>
+        <div class="stat">
+          <b>{PROFILE.stats.coffees}</b>
+          <span> coffees</span>
+        </div>
+      </div>
+
+      <blockquote class="profile-quote">
+        {PROFILE.bio}
+      </blockquote>
+
+      <div class="profile-links">
+        <a href={PROFILE.links.email.url} class="profile-link" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               class="lucide lucide-mail-icon lucide-mail">
+            <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+          </svg>
+          {PROFILE.links.email.label}
+        </a>
+        <!--<a href={PROFILE.links.web.url} class="profile-link" target="_blank" rel="noopener noreferrer">-->
+        <!--  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"-->
+        <!--       stroke-linejoin="round">-->
+        <!--    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />-->
+        <!--    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />-->
+        <!--  </svg>-->
+        <!--  {PROFILE.links.web.label}-->
+        <!--</a>-->
+        <a href={PROFILE.links.github.url} class="profile-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               class="lucide lucide-github-icon lucide-github">
+            <path
+              d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+            <path d="M9 18c-4.51 2-5-2-7-2" />
+          </svg>
+          {PROFILE.links.github.label}
+        </a>
+        <a href={PROFILE.links.linkedin.url} class="profile-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               class="lucide lucide-linkedin-icon lucide-linkedin">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect width="4" height="12" x="2" y="9" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+          {PROFILE.links.linkedin.label}
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Posts Section -->
+  <div class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        Commercial experience
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    {experiences.map((exp) => (
+      <a href={`/experience/${exp.id}`} class="post-item">
+        <img src={exp.data.logo.src} alt={exp.data.company} />
+        <div class="post-overlay">
+          <span class="post-overlay-content">Alex 🤝 {exp.data.company}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Hackathons section -->
+  <div class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        Hackathons
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    {hackathons.map((hack) => (
+      <a href={`/hackathons/${hack.id}`} class="post-item">
+        <img src={hack.data.logo.src} alt={hack.data.name} />
+        <div class="post-overlay">
+          <span class="post-overlay-content">Alex 🚀 {hack.data.name}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Side projects section -->
+  <div class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        Side projects
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    {sideProjects.map((project) => (
+      <a href={`/projects/${project.id}`} class="post-item">
+        <img src={project.data.logo.src} alt={project.data.name} />
+        <div class="post-overlay">
+          <span class="post-overlay-content">Alex 🧑‍💻 {project.data.name}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Interviews section -->
+  <div class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        Interviews
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    {interviews.map((interview) => (
+      <a href={`/interviews/${interview.id}`} class="post-item">
+        <img src={interview.data.logo.src} alt={interview.data.name} />
+        <div class="post-overlay">
+          <span class="post-overlay-content">Alex 🔊 {interview.data.name}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</main>
+
+<style>
+  .profile-container {
+    max-width: 935px;
+    margin: 0 auto;
+    padding: 64px 0;
+  }
+
+  .profile-header {
+    display: flex;
+    gap: 64px;
+    align-items: flex-start;
+  }
+
+  .avatar-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid var(--bg-primary);
+    object-fit: cover;
+  }
+
+  .profile-info {
+    flex: 1;
+  }
+
+  .username {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--text-primary);
+  }
+
+  .profile-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 20px;
+  }
+
+  .stat {
+    font-size: 16px;
+    color: var(--text-primary);
+  }
+
+  .profile-quote {
+    position: relative;
+    margin: 0 0 20px 0;
+    padding: 0 0 0 16px;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    border-left: 2px solid var(--link-color);
+  }
+
+  .profile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+  }
+
+  .profile-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--link-color);
+    font-weight: 600;
+  }
+
+  .profile-link svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .posts-divider {
+    border-top: 1px solid var(--border-color);
+    margin-top: 40px;
+  }
+
+  .posts-nav {
+    display: flex;
+    gap: 60px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .posts-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 16px 0;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    border-top: 1px solid var(--text-primary);
+    margin-top: -1px;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .post-item {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    border: none;
+    padding: 0;
+    background: none;
+    width: 100%;
+  }
+
+  .post-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s ease;
+  }
+
+  .post-item:hover img {
+    opacity: 0.7;
+  }
+
+  .post-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .post-item:hover .post-overlay {
+    opacity: 1;
+  }
+
+  .post-overlay-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  @media (max-width: 735px) {
+    .profile-header {
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .avatar-wrapper {
+      width: 200px;
+      height: 200px;
+    }
+
+    .profile-top {
+      justify-content: center;
+    }
+
+    .profile-stats {
+      padding: 0 16px;
+      justify-content: center;
+    }
+
+    .stat {
+      font-size: 12px;
+    }
+
+    .profile-quote {
+      text-align: start;
+      margin-left: 16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .profile-links {
+      margin-left: 16px;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .posts-grid {
+      gap: 0;
+    }
+
+    .posts-divider {
+      margin-top: 16px;
+    }
+
+    .posts-nav-item {
+      margin-left: 16px;
+      padding: 8px 0;
+    }
+  }
+</style>
