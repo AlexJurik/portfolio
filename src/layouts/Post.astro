@@ -264,13 +264,38 @@ const { title, subtitle, date, logo, links } = Astro.props;
   }
 
   @media (max-width: 900px) {
+    .modal-overlay {
+      padding: 0;
+    }
+
+    .modal-container {
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-close {
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
     .modal-content {
       flex-direction: column;
-      max-height: 90vh;
+      max-height: 100vh;
+      height: 100%;
+      border-radius: 0;
     }
 
     .modal-image {
-      height: 300px;
+      height: 40vh;
       flex: none;
     }
 
@@ -278,7 +303,8 @@ const { title, subtitle, date, logo, links } = Astro.props;
       width: 100%;
       border-left: none;
       border-top: 1px solid var(--border-color);
-      max-height: calc(90vh - 300px);
+      max-height: none;
+      flex: 1;
     }
   }
 </style>
