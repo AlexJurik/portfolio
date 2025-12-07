@@ -82,6 +82,14 @@ const interviews = (await getCollection("interviews"))
           {PROFILE.links.linkedin.label}
         </a>
       </div>
+      <a href="https://maps.google.com/?q=Košice,Slovakia" target="_blank" rel="noopener noreferrer" class="profile-location">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Košice, Slovakia
+      </a>
     </div>
   </header>
 
@@ -189,7 +197,7 @@ const interviews = (await getCollection("interviews"))
     <div class="footer-info">
       <span class="footer-name">{PROFILE.username}</span>
       <span class="footer-tagline">Software Engineer</span>
-      <span class="footer-company">JurikTech s.r.o. · ID: 56 723 326</span>
+      <span class="footer-company">JurikTech s.r.o. · ID: 56 723 326 · <a href="https://maps.google.com/?q=Košice,Slovakia" target="_blank" rel="noopener noreferrer">Košice, Slovakia</a></span>
     </div>
     <div class="footer-links">
       <a href={PROFILE.links.github.url} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -299,6 +307,21 @@ const interviews = (await getCollection("interviews"))
     height: 14px;
   }
 
+  .profile-location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-top: 12px;
+    transition: color 0.2s ease;
+  }
+
+  .profile-location:hover {
+    color: var(--text-primary);
+  }
+
   .posts-divider {
     border-top: 1px solid var(--border-color);
     margin-top: 40px;
@@ -380,6 +403,79 @@ const interviews = (await getCollection("interviews"))
     font-size: 16px;
   }
 
+  .site-footer {
+    max-width: 935px;
+    margin: 0 auto;
+    padding: 40px 0;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .footer-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .footer-company {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .footer-company a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-company a:hover {
+    color: var(--text-secondary);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  .footer-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--text-primary);
+  }
+
+  .footer-source {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-source:hover {
+    color: var(--text-secondary);
+  }
+
   @media (max-width: 735px) {
     .profile-header {
       flex-direction: column;
@@ -435,68 +531,9 @@ const interviews = (await getCollection("interviews"))
     .post-overlay-content {
       font-size: 12px;
     }
-  }
 
-  .site-footer {
-    max-width: 935px;
-    margin: 0 auto;
-    padding: 40px 0;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .footer-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .footer-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .footer-tagline {
-    font-size: 12px;
-    color: var(--text-secondary);
-  }
-
-  .footer-company {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 16px;
-  }
-
-  .footer-links a {
-    color: var(--text-secondary);
-    transition: color 0.2s ease;
-  }
-
-  .footer-links a:hover {
-    color: var(--text-primary);
-  }
-
-  .footer-source {
-    font-size: 12px;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-source:hover {
-    color: var(--text-secondary);
+    .profile-location {
+      margin-left: 16px;
+    }
   }
 </style>
