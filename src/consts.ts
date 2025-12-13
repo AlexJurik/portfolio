@@ -1,5 +1,5 @@
 export const SITE_TITLE = "Alex Jurik | Software Engineer";
-export const SITE_DESCRIPTION = "Software engineer - Move more. Code better.";
+export const SITE_DESCRIPTION = "Crafting high-performance web apps. Javascript specialist with deep expertise. Built products in fintech, healthcare, and logistics that people use and love <3.";
 
 export const PROFILE = {
   username: "Alexander Jurik",
