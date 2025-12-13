@@ -23,6 +23,11 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="language" content="English" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Alexander Jurik" />
+<meta name="keywords" content="Alexander Jurik, Alex Jurik, Jurik, dev, engineer, software engineer, web development, web, coding, programming, software, fintech, logistics, healthcare, tech blog, portfolio" />
+<meta name="theme-color" content="#000000" />
 <link rel="icon" type="image/svg+xml" href="/favicon.png" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
@@ -47,6 +52,8 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -54,6 +61,19 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json" set:html={JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": SITE_TITLE,
+	"author": {
+		"@type": "Person",
+		"name": "Alexander Jurik"
+	},
+	"url": Astro.site?.toString(),
+	"description": description
+})} />
 
 <!-- Analytics -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="a2e97048-d6a7-458f-8c40-67d938f5377b"></script>
