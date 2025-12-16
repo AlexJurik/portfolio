@@ -1,5 +1,6 @@
 export const SITE_TITLE = "Alex Jurik | Software Engineer";
-export const SITE_DESCRIPTION = "Crafting high-performance web apps. Javascript specialist with deep expertise. Built products in fintech, healthcare, and logistics that people use and love <3.";
+export const SITE_DESCRIPTION =
+  "Crafting high-performance web apps. Javascript specialist with deep expertise. Built products in fintech, healthcare, and logistics that people use and love <3.";
 
 export const PROFILE = {
   username: "Alexander Jurik",
@@ -10,8 +11,8 @@ export const PROFILE = {
   avatar: "/avatar.jpg",
   links: {
     email: {
-      url: "mailto:alexander.jurik@outlook.com",
-      label: "alexander.jurik(at)outlook.com",
+      url: "mailto:alex@jurik.dev",
+      label: "alex(at)jurik.dev",
     },
     web: {
       url: "https://bento.me/alex-jurik",
