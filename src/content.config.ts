@@ -42,7 +42,8 @@ const sideProjects = defineCollection({
     z.object({
       name: z.string(),
       date: z.string(),
-      logo: image(),
+      logo: image().optional(),
+      markdown: z.string().optional(),
       order: z.number(),
       links: z.array(
         z.object({

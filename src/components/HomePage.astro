@@ -145,7 +145,13 @@ const interviews = (await getCollection("interviews"))
   <div class="posts-grid">
     {sideProjects.map((project) => (
       <a href={`/projects/${project.id}`} class="post-item">
-        <img src={project.data.logo.src} alt={project.data.name} />
+          {project.data.logo?.src ? (
+            <img src={project.data.logo.src} alt={project.data.name} />
+          ) : project.data.markdown ? (
+            <div class="post-markdown">
+              <div set:html={project.data.markdown} />
+            </div>
+          ) : null}
         <div class="post-overlay">
           <span class="post-overlay-content">Alex 🧑‍💻 {project.data.name}</span>
         </div>
@@ -360,7 +366,9 @@ const interviews = (await getCollection("interviews"))
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     padding: 0;
     background: none;

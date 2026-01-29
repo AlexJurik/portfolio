@@ -56,7 +56,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:image" content={new URL(image?.src, Astro.url)} />
 <meta property="og:site_name" content={SITE_TITLE} />
 <meta property="og:locale" content="en_US" />
 
@@ -82,3 +82,4 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <!-- Analytics -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="a2e97048-d6a7-458f-8c40-67d938f5377b"></script>
+<script src="https://cdn.jsdelivr.net/gh/AlexJurik/bitcoin-live-widget@main/public/crypto-ticker.js"></script>

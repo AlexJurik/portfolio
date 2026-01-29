@@ -10,11 +10,12 @@ interface Props {
   title: string;
   subtitle?: string;
   date: string;
-  logo: ImageMetadata;
+  logo?: ImageMetadata;
+  markdown?: string;
   links: Array<{ url: string; label: string }>;
 }
 
-const { title, subtitle, date, logo, links } = Astro.props;
+const { title, subtitle, date, logo, markdown, links } = Astro.props;
 ---
 
 <html lang="en">
@@ -33,9 +34,15 @@ const { title, subtitle, date, logo, links } = Astro.props;
           </svg>
         </a>
         <div class="modal-content">
-          <div class="modal-image">
-            <Image src={logo} alt={title} width={600} height={600} />
-          </div>
+          {logo ? (
+            <div class="modal-image">
+              <Image src={logo} alt={title} width={600} height={600} />
+            </div>
+          ) : markdown ? (
+            <div class="modal-markdown">
+              <div set:html={markdown} />
+            </div>
+          ) : null}
           <div class="modal-details">
             <header class="modal-header">
               <div class="modal-avatar">
@@ -138,6 +145,15 @@ const { title, subtitle, date, logo, links } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .modal-markdown {
+    flex: 1;
+    min-width: 0;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .modal-details {
@@ -295,6 +311,11 @@ const { title, subtitle, date, logo, links } = Astro.props;
     }
 
     .modal-image {
+      height: 30vh;
+      flex: none;
+    }
+
+    .modal-markdown {
       height: 30vh;
       flex: none;
     }

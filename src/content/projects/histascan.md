@@ -2,7 +2,7 @@
 name: "HistaScan"
 date: "2026"
 logo: "../../assets/histascan.png"
-order: 1
+order: 2
 links: [{label: "histascan.com", url: "https://histascan.com/"}]
 ---
 
