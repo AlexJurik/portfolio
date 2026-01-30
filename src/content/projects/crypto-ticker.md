@@ -3,7 +3,7 @@ name: "Crypto ticker"
 date: "2026"
 markdown: "<crypto-ticker refresh-interval='3'></crypto-ticker>"
 order: 1
-links: [{label: "crypto-live-widget.dev", url: "https://crypto-live-widget.aleks-jurik.workers.dev/"}]
+links: [{label: "cryptoticker.jurik.dev", url: "https://cryptoticker.jurik.dev/"}]
 ---
 
 A lightweight web component that displays real-time cryptocurrency prices with automatic refresh.
