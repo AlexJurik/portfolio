@@ -3,6 +3,9 @@ import { PROFILE } from "../consts";
 import { getCollection } from "astro:content";
 import avatarImg from "../assets/avatar.jpg";
 import keepInTouchImg from "../assets/keep-in-touch.png";
+import hyroxImg from "../assets/hyrox.jpg";
+import stravaImg from "../assets/strava.png";
+import ytMusicImg from "../assets/yt-music.png";
 
 const experiences = (await getCollection("experience"))
   .sort((a, b) => a.data.order - b.data.order);
@@ -113,6 +116,32 @@ const interviews = (await getCollection("interviews"))
     ))}
   </div>
 
+  <!-- Side projects section -->
+  <div class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        Side projects
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    {sideProjects.map((project) => (
+      <a href={`/projects/${project.id}`} class="post-item" style={project.data.background ? `background: ${project.data.background};` : undefined}>
+          {project.data.logo?.src ? (
+            <img src={project.data.logo.src} alt={project.data.name} />
+          ) : project.data.markdown ? (
+            <div class="post-markdown">
+              <div set:html={project.data.markdown} />
+            </div>
+          ) : null}
+        <div class="post-overlay">
+          <span class="post-overlay-content">Alex 🧑‍💻 {project.data.name}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
   <!-- Hackathons section -->
   <div class="posts-divider">
     <div class="posts-nav">
@@ -128,32 +157,6 @@ const interviews = (await getCollection("interviews"))
         <img src={hack.data.logo.src} alt={hack.data.name} />
         <div class="post-overlay">
           <span class="post-overlay-content">Alex 🚀 {hack.data.name}</span>
-        </div>
-      </a>
-    ))}
-  </div>
-
-  <!-- Side projects section -->
-  <div class="posts-divider">
-    <div class="posts-nav">
-      <div class="posts-nav-item">
-        Side projects
-      </div>
-    </div>
-  </div>
-
-  <div class="posts-grid">
-    {sideProjects.map((project) => (
-      <a href={`/projects/${project.id}`} class="post-item">
-          {project.data.logo?.src ? (
-            <img src={project.data.logo.src} alt={project.data.name} />
-          ) : project.data.markdown ? (
-            <div class="post-markdown">
-              <div set:html={project.data.markdown} />
-            </div>
-          ) : null}
-        <div class="post-overlay">
-          <span class="post-overlay-content">Alex 🧑‍💻 {project.data.name}</span>
         </div>
       </a>
     ))}
@@ -177,6 +180,63 @@ const interviews = (await getCollection("interviews"))
         </div>
       </a>
     ))}
+  </div>
+
+  <!-- Sports section -->
+  <div id="one-percent-mode" class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        1% mode
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    <a href="https://www.instagram.com/p/DRrSz3dDLzg" class="post-item" target="_blank" rel="noopener noreferrer">
+      <div class="post-placeholder post-placeholder-instagram">
+        <img src={hyroxImg.src} alt="Hyrox" />
+      </div>
+      <div class="post-overlay">
+        <span class="post-overlay-content">Alex 💪 Hyrox</span>
+      </div>
+      <div class="external-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+    </a>
+    <a href="https://www.strava.com/athletes/30749770" class="post-item" target="_blank" rel="noopener noreferrer">
+      <div class="post-placeholder post-placeholder-instagram">
+        <img src={stravaImg.src} alt="Strava" />
+      </div>
+      <div class="post-overlay">
+        <span class="post-overlay-content">Alex 💪 Strava</span>
+      </div>
+      <div class="external-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+    </a>
+    <a href="https://music.youtube.com/playlist?list=PLiVQccTMiKvcnKuLC1KqkwB1lJ2weTTr-" class="post-item" target="_blank" rel="noopener noreferrer">
+      <div class="post-placeholder post-placeholder-music">
+        <img src={ytMusicImg.src} alt="YouTube Music" />
+      </div>
+      <div class="post-overlay">
+        <span class="post-overlay-content">Alex 💪 1% mode playlist</span>
+      </div>
+      <div class="external-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+    </a>
   </div>
 
   <!-- Keep in touch section -->
@@ -409,6 +469,33 @@ const interviews = (await getCollection("interviews"))
     color: white;
     font-weight: 600;
     font-size: 16px;
+  }
+
+  .post-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: opacity 0.2s ease;
+  }
+
+  .post-item:hover .post-placeholder {
+    opacity: 0.7;
+  }
+
+  .external-link-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+    padding: 4px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .site-footer {

@@ -2,6 +2,7 @@
 name: "Crypto ticker"
 date: "2026"
 markdown: "<crypto-ticker refresh-interval='3'></crypto-ticker>"
+background: "#151f28"
 order: 1
 links: [{label: "cryptoticker.jurik.dev", url: "https://cryptoticker.jurik.dev/"}]
 ---
