@@ -1,40 +1,224 @@
 ---
+import { PROFILE } from "../consts";
+
+const signupEmail = PROFILE.links.email.url.replace(/^mailto:/i, "");
+const signupAction = `https://formsubmit.co/ajax/${signupEmail}`;
 ---
 
 <div id="hyrox-banner" class="hyrox-banner">
   <div class="hyrox-banner-content">
-    <svg class="hyrox-banner-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="17" cy="4" r="2"/>
-      <path d="M15.59 13.51 11 9.5 4 15"/>
-      <path d="m12.84 9.26 2.76 2.62"/>
-      <path d="M18 20c-.9-1.32-2.07-2.4-3.42-3.09"/>
-      <path d="M4 20c1.39-.65 2.63-1.61 3.63-2.79"/>
-      <path d="m11 9.5 1.09 5.83"/>
-    </svg>
-    <span>Hey, fellow Hyrox athlete! Check out my <a href="#one-percent-mode" class="hyrox-banner-link">1% mode section</a> below.</span>
-    <button id="hyrox-banner-close" class="hyrox-banner-close" aria-label="Close banner">
+    <div class="hyrox-banner-main">
+      <svg class="hyrox-banner-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="17" cy="4" r="2" />
+        <path d="M15.59 13.51 11 9.5 4 15" />
+        <path d="m12.84 9.26 2.76 2.62" />
+        <path d="M18 20c-.9-1.32-2.07-2.4-3.42-3.09" />
+        <path d="M4 20c1.39-.65 2.63-1.61 3.63-2.79" />
+        <path d="m11 9.5 1.09 5.83" />
+      </svg>
+      <span class="hyrox-banner-text">Scanned my HYROX QR? I want you in my free beta.</span>
+    </div>
+
+    <div class="hyrox-banner-actions">
+      <button id="hyrox-banner-open" class="hyrox-banner-open" type="button">
+        Get free beta access
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="hyrox-modal-overlay" class="hyrox-modal-overlay" aria-hidden="true">
+  <div class="hyrox-modal" role="dialog" aria-modal="true" aria-labelledby="one-percent-title">
+    <button id="hyrox-modal-close" class="hyrox-modal-close" aria-label="Close modal" type="button">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
       </svg>
     </button>
+
+    <p class="hyrox-eyebrow">FROM ME TO YOU</p>
+    <h2 id="one-percent-title">If you are here, you already know what 1% mode feels like.</h2>
+    <p class="hyrox-lead">
+      I keep 1% mode simple. The three principles below are the standard I try to live by every day.
+    </p>
+
+    <ul class="hyrox-points">
+      <li>Principle 1: Do meaningful work, and love what you do.</li>
+      <li>Principle 2: Care about your family and people around.</li>
+      <li>Principle 3: Train with discipline, without ego.</li>
+    </ul>
+
+    <p class="hyrox-copy">
+      I am building an AI-powered HYROX training plan for people who want to live that standard consistently, and I am opening the beta for free to people who scanned my QR code.
+    </p>
+
+    <form
+      id="hyrox-beta-form"
+      class="hyrox-beta-form"
+      action={signupAction}
+      method="POST"
+      data-signup-email={signupEmail}
+    >
+      <input type="hidden" name="_subject" value="New HYROX 1% mode beta signup" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="origin" value="" />
+      <input type="hidden" name="source_page" value="" />
+      <input type="hidden" name="submitted_at" value="" />
+
+      <label for="hyrox-beta-email">Drop your email and I will invite you first</label>
+      <div class="hyrox-input-row">
+        <input
+          id="hyrox-beta-email"
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          placeholder="you@domain.com"
+        />
+        <button id="hyrox-beta-submit" type="submit">Put me on the beta list</button>
+      </div>
+      <p class="hyrox-note">No spam. Just one message from me when it is ready.</p>
+      <p id="hyrox-form-status" class="hyrox-form-status" aria-live="polite"></p>
+    </form>
   </div>
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    const banner = document.getElementById('hyrox-banner');
-    const closeBtn = document.getElementById('hyrox-banner-close');
+  document.addEventListener("astro:page-load", () => {
+    const allowedOrigins = ["hyrox", "hirocks", "hierarchy"];
 
-    if (!banner || !closeBtn) return;
+    const banner = document.getElementById("hyrox-banner");
+    const openBtn = document.getElementById("hyrox-banner-open");
+    const modalOverlay = document.getElementById("hyrox-modal-overlay");
+    const closeModalBtn = document.getElementById("hyrox-modal-close");
+    const form = document.getElementById("hyrox-beta-form");
+    const emailInput = document.getElementById("hyrox-beta-email");
+    const submitBtn = document.getElementById("hyrox-beta-submit");
+    const statusEl = document.getElementById("hyrox-form-status");
 
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('origin') === 'hyrox') {
-      banner.style.display = 'block';
+    if (
+      !banner ||
+      !openBtn ||
+      !modalOverlay ||
+      !closeModalBtn ||
+      !form ||
+      !emailInput ||
+      !submitBtn ||
+      !statusEl
+    ) {
+      return;
     }
 
-    closeBtn.addEventListener('click', () => {
-      banner.style.display = 'none';
+    if (banner.dataset.bound === "true") return;
+    banner.dataset.bound = "true";
+
+    const params = new URLSearchParams(window.location.search);
+    const sourceOrigin = (params.get("origin") || "").trim().toLowerCase();
+
+    if (!allowedOrigins.includes(sourceOrigin)) return;
+    banner.style.display = "block";
+
+    const originInput = form.querySelector('input[name="origin"]');
+    const sourcePageInput = form.querySelector('input[name="source_page"]');
+    const submittedAtInput = form.querySelector('input[name="submitted_at"]');
+    const fallbackEmail = form.getAttribute("data-signup-email") || "";
+
+    const setContextFields = () => {
+      if (originInput) originInput.value = sourceOrigin;
+      if (sourcePageInput) sourcePageInput.value = window.location.href;
+    };
+
+    const setStatus = (text, type = "") => {
+      statusEl.className = "hyrox-form-status";
+      if (type) statusEl.classList.add(type);
+      statusEl.textContent = text;
+    };
+
+    const setSubmitting = (isSubmitting) => {
+      if (isSubmitting) {
+        submitBtn.setAttribute("disabled", "disabled");
+      } else {
+        submitBtn.removeAttribute("disabled");
+      }
+    };
+
+    const setModalOpen = (isOpen) => {
+      modalOverlay.classList.toggle("is-open", isOpen);
+      modalOverlay.setAttribute("aria-hidden", String(!isOpen));
+      document.body.style.overflow = isOpen ? "hidden" : "";
+    };
+
+    setContextFields();
+
+    const openModal = () => {
+      setModalOpen(true);
+      setStatus("");
+      window.setTimeout(() => emailInput.focus(), 50);
+    };
+
+    const closeModal = () => {
+      setModalOpen(false);
+    };
+
+    openBtn.addEventListener("click", openModal);
+
+    closeModalBtn.addEventListener("click", closeModal);
+
+    modalOverlay.addEventListener("click", (event) => {
+      if (event.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const emailValue = emailInput.value.trim();
+      if (!emailValue) return;
+
+      setStatus("Submitting...");
+      setSubmitting(true);
+
+      if (submittedAtInput) submittedAtInput.value = new Date().toISOString();
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        form.reset();
+        setContextFields();
+        setStatus("You are in. I will email you as soon as the beta is ready.", "is-success");
+      } catch (error) {
+        if (fallbackEmail) {
+          const mailtoSubject = encodeURIComponent("HYROX 1% mode beta signup");
+          const mailtoBody = encodeURIComponent(
+            `Please add me to the HYROX 1% mode beta list.\n\nEmail: ${emailValue}\nOrigin: ${sourceOrigin || "unknown"}\nPage: ${window.location.href}`,
+          );
+          window.location.href = `mailto:${fallbackEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
+          setStatus("Your mail app opened as a fallback. Send that draft and I will add you.");
+        } else {
+          setStatus("Submission failed. Please try again in a few minutes.");
+        }
+      } finally {
+        setSubmitting(false);
+      }
     });
   });
 </script>
@@ -43,7 +227,7 @@
   .hyrox-banner {
     display: none;
     top: 0;
-    background: #151f28;
+    background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
   }
@@ -51,57 +235,313 @@
   .hyrox-banner-content {
     max-width: 935px;
     margin: 0 auto;
-    padding: 12px 16px;
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 13px;
+    text-align: center;
+    color: var(--text-primary);
+  }
+
+  .hyrox-banner-main {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    font-size: 14px;
-    color: var(--text-primary);
+    gap: 8px;
   }
 
   .hyrox-banner-icon {
-    margin-right: 8px;
     flex-shrink: 0;
-  }
-
-  .hyrox-banner-link {
     color: var(--link-color);
-    font-weight: 600;
-    text-decoration: underline;
   }
 
-  .hyrox-banner-close {
-    position: absolute;
-    right: 16px;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
-  }
-
-  .hyrox-banner-close:hover {
+  .hyrox-banner-text {
+    line-height: 1.35;
     color: var(--text-primary);
   }
 
+  .hyrox-banner-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .hyrox-banner-open {
+    width: min(320px, 100%);
+    border: 1px solid var(--link-color);
+    background: transparent;
+    color: var(--link-color);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .hyrox-banner-open:hover {
+    background: var(--link-color);
+    color: var(--bg-primary);
+  }
+
+  .hyrox-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .hyrox-modal-overlay.is-open {
+    display: flex;
+  }
+
+  .hyrox-modal {
+    position: relative;
+    width: min(620px, 100%);
+    max-height: min(86vh, 760px);
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 24px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .hyrox-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 0;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hyrox-modal-close:hover {
+    color: var(--text-primary);
+  }
+
+  .hyrox-eyebrow {
+    margin: 0 0 6px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  #one-percent-title {
+    margin: 0;
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  .hyrox-lead,
+  .hyrox-copy {
+    margin: 12px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .hyrox-points {
+    margin: 16px 0 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 8px;
+    color: var(--text-primary);
+  }
+
+  .hyrox-beta-form {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+  }
+
+  .hyrox-beta-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .hyrox-input-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .hyrox-input-row input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 12px;
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+  .hyrox-input-row input:focus {
+    outline: none;
+    border-color: var(--link-color);
+  }
+
+  .hyrox-input-row button {
+    border: 0;
+    border-radius: 4px;
+    background: var(--link-color);
+    color: var(--bg-primary);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 14px;
+    min-height: 44px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .hyrox-input-row button[disabled] {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  .hyrox-form-status {
+    min-height: 22px;
+    margin: 10px 0 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  .hyrox-form-status.is-success {
+    color: var(--text-primary);
+  }
+
+  .hyrox-note {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
   @media (max-width: 735px) {
+    .hyrox-banner {
+      position: sticky;
+      top: 0;
+    }
+
     .hyrox-banner-content {
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
       font-size: 12px;
-      padding: 10px 40px 10px 16px;
-      text-align: center;
+    }
+
+    .hyrox-banner-main {
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .hyrox-banner-icon {
-      display: none;
+      margin-top: 1px;
     }
 
-    .hyrox-banner-close {
+    .hyrox-banner-text {
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .hyrox-banner-actions {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .hyrox-banner-open {
+      width: min(340px, 100%);
+      min-height: 40px;
+      padding: 10px 12px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .hyrox-modal-overlay {
+      align-items: flex-end;
+      padding: 0;
+    }
+
+    .hyrox-modal {
+      width: 100%;
+      max-height: min(92dvh, 760px);
+      border-radius: 14px 14px 0 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+      box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .hyrox-modal-close {
+      width: 38px;
+      height: 38px;
+      top: 8px;
       right: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #one-percent-title {
+      font-size: clamp(22px, 6.2vw, 28px);
+      padding-right: 42px;
+    }
+
+    .hyrox-lead,
+    .hyrox-copy {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .hyrox-points {
+      margin-top: 14px;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .hyrox-beta-form {
+      margin-top: 14px;
+      padding: 14px;
+    }
+
+    .hyrox-beta-form label {
+      font-size: 13px;
+    }
+
+    .hyrox-input-row {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hyrox-input-row button {
+      width: 100%;
+      text-align: center;
     }
   }
 </style>
