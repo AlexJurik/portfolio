@@ -2,7 +2,7 @@
 name: "Easy code snippet"
 date: "2024"
 logo: "../../assets/code-snippet.png"
-order: 3
+order: 4
 links: [{label: "easy-code-snippet.app", url: "https://easy-code-snippet.netlify.app/"}]
 ---
 

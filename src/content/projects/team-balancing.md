@@ -2,7 +2,7 @@
 name: "Football team balancer"
 date: "2023"
 logo: "../../assets/team-balancing.png"
-order: 4
+order: 5
 links: [{label: "teambalancing.com", url: "https://teambalancing.com/"}]
 ---
 
