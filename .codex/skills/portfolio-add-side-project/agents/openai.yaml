@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add Side Project Card"
+  short_description: "Research and add a portfolio side project card"
+  default_prompt: "Use $portfolio-add-side-project to research this project's website first and add it as a new side project entry in the portfolio."
