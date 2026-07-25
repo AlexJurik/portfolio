@@ -4,6 +4,8 @@ import { getCollection } from "astro:content";
 import avatarImg from "../assets/avatar.jpg";
 import keepInTouchImg from "../assets/keep-in-touch.png";
 import hyroxImg from "../assets/hyrox.jpg";
+import hyroxKatowiceImg from "../assets/hyrox-katowice.jpg";
+import hyroxBerlinImg from "../assets/hyrox-berlin.jpg";
 import stravaImg from "../assets/strava.png";
 import ytMusicImg from "../assets/yt-music.png";
 
@@ -162,26 +164,6 @@ const interviews = (await getCollection("interviews"))
     ))}
   </div>
 
-  <!-- Interviews section -->
-  <div class="posts-divider">
-    <div class="posts-nav">
-      <div class="posts-nav-item">
-        Interviews
-      </div>
-    </div>
-  </div>
-
-  <div class="posts-grid">
-    {interviews.map((interview) => (
-      <a href={`/interviews/${interview.id}`} class="post-item">
-        <img src={interview.data.logo.src} alt={interview.data.name} />
-        <div class="post-overlay">
-          <span class="post-overlay-content">Alex 🔊 {interview.data.name}</span>
-        </div>
-      </a>
-    ))}
-  </div>
-
   <!-- Sports section -->
   <div id="one-percent-mode" class="posts-divider">
     <div class="posts-nav">
@@ -192,6 +174,46 @@ const interviews = (await getCollection("interviews"))
   </div>
 
   <div class="posts-grid">
+    <a href="https://www.instagram.com/p/DZCqlvOOWAt/" class="post-item" target="_blank" rel="noopener noreferrer">
+      <div class="post-placeholder post-placeholder-instagram">
+        <img src={hyroxBerlinImg.src} alt="HYROX Berlin Single Open, May 2026" />
+      </div>
+      <div class="post-overlay">
+        <span class="post-overlay-content race-overlay-content">
+          <strong>HYROX Berlin</strong>
+          <span>May 2026 · Single Open</span>
+          <span>1:14:41</span>
+        </span>
+      </div>
+      <div class="external-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+    </a>
+
+    <a href="https://www.instagram.com/p/DVFzHvejOde/?img_index=1" class="post-item" target="_blank" rel="noopener noreferrer">
+      <div class="post-placeholder post-placeholder-instagram">
+        <img src={hyroxKatowiceImg.src} alt="HYROX Katowice Single Open, February 2026" />
+      </div>
+      <div class="post-overlay">
+        <span class="post-overlay-content race-overlay-content">
+          <strong>HYROX Katowice</strong>
+          <span>February 2026 · Single Open</span>
+          <span>1:17:24</span>
+        </span>
+      </div>
+      <div class="external-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+    </a>
+
     <a href="https://www.instagram.com/p/DRrSz3dDLzg" class="post-item" target="_blank" rel="noopener noreferrer">
       <div class="post-placeholder post-placeholder-instagram">
         <img src={hyroxImg.src} alt="Hyrox" />
@@ -237,6 +259,27 @@ const interviews = (await getCollection("interviews"))
         </svg>
       </div>
     </a>
+  </div>
+
+
+  <!-- Interviews section -->
+  <div class="posts-divider">
+    <div class="posts-nav">
+      <div class="posts-nav-item">
+        Interviews
+      </div>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    {interviews.map((interview) => (
+      <a href={`/interviews/${interview.id}`} class="post-item">
+        <img src={interview.data.logo.src} alt={interview.data.name} />
+        <div class="post-overlay">
+          <span class="post-overlay-content">Alex 🔊 {interview.data.name}</span>
+        </div>
+      </a>
+    ))}
   </div>
 
   <!-- Keep in touch section -->
@@ -469,6 +512,11 @@ const interviews = (await getCollection("interviews"))
     color: white;
     font-weight: 600;
     font-size: 16px;
+  }
+
+  .race-overlay-content {
+    flex-direction: column;
+    gap: 4px;
   }
 
   .post-placeholder {
