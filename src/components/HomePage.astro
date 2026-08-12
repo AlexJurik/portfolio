@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import avatarImg from "../assets/avatar.jpg";
 import keepInTouchImg from "../assets/keep-in-touch.png";
 import hyroxImg from "../assets/hyrox.jpg";
+import hyroxTrainingImg from "../assets/hyrox.png";
 import hyroxKatowiceImg from "../assets/hyrox-katowice.jpg";
 import hyroxBerlinImg from "../assets/hyrox-berlin.jpg";
 import stravaImg from "../assets/strava.png";
@@ -176,21 +177,13 @@ const interviews = (await getCollection("interviews"))
   <div class="posts-grid">
     <a
       href="https://cassovar.formfactory.sk/calendar?instructor=147196"
-      class="post-item hyrox-training-card"
+      class="post-item"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Book a HYROX training session on Tuesday at 18:00 or Friday at 6:30"
     >
-      <div class="hyrox-training-content">
-        <span class="hyrox-training-kicker">Train with me</span>
-        <strong>HYROX</strong>
-        <div class="hyrox-training-schedule">
-          <span><b>Tue</b> 18:00</span>
-          <span><b>Fri</b> 6:30</span>
-        </div>
-        <span class="hyrox-training-cta">Book a class <span aria-hidden="true">&rarr;</span></span>
-      </div>
-      <div class="external-link-icon hyrox-training-link-icon">
+      <img src={hyroxTrainingImg.src} alt="Train with me at HYROX on Tuesday at 18:00 or Friday at 6:30" />
+      <div class="external-link-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
           <polyline points="15 3 21 3 21 9"/>
@@ -544,74 +537,6 @@ const interviews = (await getCollection("interviews"))
     gap: 4px;
   }
 
-  .hyrox-training-card {
-    background: #0b0b0b;
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .hyrox-training-content {
-    width: 100%;
-    height: 100%;
-    padding: clamp(16px, 2.8vw, 30px);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    box-sizing: border-box;
-  }
-
-  .hyrox-training-kicker {
-    padding: 4px 7px;
-    background: #fff;
-    color: #0b0b0b;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.4px;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .hyrox-training-content > strong {
-    font-size: clamp(34px, 5vw, 58px);
-    font-weight: 900;
-    letter-spacing: -3px;
-    line-height: 0.9;
-  }
-
-  .hyrox-training-schedule {
-    width: 100%;
-    display: grid;
-    gap: 5px;
-  }
-
-  .hyrox-training-schedule span {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 5px;
-    border-top: 1px solid rgba(255, 255, 255, 0.45);
-    font-size: clamp(12px, 1.8vw, 17px);
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .hyrox-training-schedule b {
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .hyrox-training-cta {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.7px;
-    text-transform: uppercase;
-  }
-
-  .hyrox-training-link-icon {
-    background: #fff;
-    color: #0b0b0b;
-  }
-
   .post-placeholder {
     width: 100%;
     height: 100%;
@@ -766,28 +691,6 @@ const interviews = (await getCollection("interviews"))
 
     .post-overlay-content {
       font-size: 12px;
-    }
-
-    .hyrox-training-content {
-      padding: 12px;
-    }
-
-    .hyrox-training-content > strong {
-      font-size: clamp(24px, 10vw, 42px);
-      letter-spacing: -2px;
-    }
-
-    .hyrox-training-kicker {
-      font-size: 8px;
-      letter-spacing: 0.8px;
-    }
-
-    .hyrox-training-schedule span {
-      font-size: clamp(10px, 3.5vw, 14px);
-    }
-
-    .hyrox-training-cta {
-      font-size: 8px;
     }
 
     .profile-location {
