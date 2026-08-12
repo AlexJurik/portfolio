@@ -545,27 +545,9 @@ const interviews = (await getCollection("interviews"))
   }
 
   .hyrox-training-card {
-    isolation: isolate;
     background: #dfff00;
     color: #0b0b0b;
     text-decoration: none;
-  }
-
-  .hyrox-training-card::before {
-    content: "";
-    position: absolute;
-    inset: -20% -35%;
-    z-index: -1;
-    background: repeating-linear-gradient(
-      -12deg,
-      transparent 0 34px,
-      rgba(11, 11, 11, 0.08) 34px 36px
-    );
-    transition: transform 0.35s ease;
-  }
-
-  .hyrox-training-card:hover::before {
-    transform: translateX(18px);
   }
 
   .hyrox-training-content {
