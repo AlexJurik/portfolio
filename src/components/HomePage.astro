@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import avatarImg from "../assets/avatar.jpg";
 import keepInTouchImg from "../assets/keep-in-touch.png";
 import hyroxImg from "../assets/hyrox.jpg";
+import hyroxTrainingImg from "../assets/hyrox.png";
 import hyroxKatowiceImg from "../assets/hyrox-katowice.jpg";
 import hyroxBerlinImg from "../assets/hyrox-berlin.jpg";
 import stravaImg from "../assets/strava.png";
@@ -174,6 +175,23 @@ const interviews = (await getCollection("interviews"))
   </div>
 
   <div class="posts-grid">
+    <a
+      href="https://cassovar.formfactory.sk/calendar?instructor=147196"
+      class="post-item"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Book a HYROX training session on Tuesday at 18:00 or Friday at 6:30"
+    >
+      <img src={hyroxTrainingImg.src} alt="Train with me at HYROX on Tuesday at 18:00 or Friday at 6:30" />
+      <div class="external-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+    </a>
+
     <a href="https://www.instagram.com/p/DZCqlvOOWAt/" class="post-item" target="_blank" rel="noopener noreferrer">
       <div class="post-placeholder post-placeholder-instagram">
         <img src={hyroxBerlinImg.src} alt="HYROX Berlin Single Open, May 2026" />
