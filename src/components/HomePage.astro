@@ -174,6 +174,31 @@ const interviews = (await getCollection("interviews"))
   </div>
 
   <div class="posts-grid">
+    <a
+      href="https://cassovar.formfactory.sk/calendar?instructor=147196"
+      class="post-item hyrox-training-card"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Book a HYROX training session on Tuesday at 18:00 or Friday at 6:30"
+    >
+      <div class="hyrox-training-content">
+        <span class="hyrox-training-kicker">Train with me</span>
+        <strong>HYROX</strong>
+        <div class="hyrox-training-schedule">
+          <span><b>Tue</b> 18:00</span>
+          <span><b>Fri</b> 6:30</span>
+        </div>
+        <span class="hyrox-training-cta">Book a class <span aria-hidden="true">&rarr;</span></span>
+      </div>
+      <div class="external-link-icon hyrox-training-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+    </a>
+
     <a href="https://www.instagram.com/p/DZCqlvOOWAt/" class="post-item" target="_blank" rel="noopener noreferrer">
       <div class="post-placeholder post-placeholder-instagram">
         <img src={hyroxBerlinImg.src} alt="HYROX Berlin Single Open, May 2026" />
@@ -519,6 +544,92 @@ const interviews = (await getCollection("interviews"))
     gap: 4px;
   }
 
+  .hyrox-training-card {
+    isolation: isolate;
+    background: #dfff00;
+    color: #0b0b0b;
+    text-decoration: none;
+  }
+
+  .hyrox-training-card::before {
+    content: "";
+    position: absolute;
+    inset: -20% -35%;
+    z-index: -1;
+    background: repeating-linear-gradient(
+      -12deg,
+      transparent 0 34px,
+      rgba(11, 11, 11, 0.08) 34px 36px
+    );
+    transition: transform 0.35s ease;
+  }
+
+  .hyrox-training-card:hover::before {
+    transform: translateX(18px);
+  }
+
+  .hyrox-training-content {
+    width: 100%;
+    height: 100%;
+    padding: clamp(16px, 2.8vw, 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+
+  .hyrox-training-kicker {
+    padding: 4px 7px;
+    background: #0b0b0b;
+    color: #dfff00;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .hyrox-training-content > strong {
+    font-size: clamp(34px, 5vw, 58px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 0.9;
+  }
+
+  .hyrox-training-schedule {
+    width: 100%;
+    display: grid;
+    gap: 5px;
+  }
+
+  .hyrox-training-schedule span {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+    border-top: 1px solid rgba(11, 11, 11, 0.45);
+    font-size: clamp(12px, 1.8vw, 17px);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .hyrox-training-schedule b {
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .hyrox-training-cta {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  .hyrox-training-link-icon {
+    background: #0b0b0b;
+    color: #dfff00;
+  }
+
   .post-placeholder {
     width: 100%;
     height: 100%;
@@ -673,6 +784,28 @@ const interviews = (await getCollection("interviews"))
 
     .post-overlay-content {
       font-size: 12px;
+    }
+
+    .hyrox-training-content {
+      padding: 12px;
+    }
+
+    .hyrox-training-content > strong {
+      font-size: clamp(24px, 10vw, 42px);
+      letter-spacing: -2px;
+    }
+
+    .hyrox-training-kicker {
+      font-size: 8px;
+      letter-spacing: 0.8px;
+    }
+
+    .hyrox-training-schedule span {
+      font-size: clamp(10px, 3.5vw, 14px);
+    }
+
+    .hyrox-training-cta {
+      font-size: 8px;
     }
 
     .profile-location {
