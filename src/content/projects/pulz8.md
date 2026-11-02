@@ -8,7 +8,7 @@ links: [{label: "pulz8.com", url: "https://pulz8.com/"}]
 
 A live heart-rate board for HYROX and hybrid gyms that puts every athlete's heart-rate zone on the gym TV, straight from the browser.
 
-Coaches pair Bluetooth chest straps and armbands in Chrome, assign each strap to an athlete once, and run the class from one shared screen. No hub, no receiver, and no app to install. Formerly Heartstream, it moved from a Raspberry Pi setup to the web and now runs for €49 a month per gym, free for individual athletes.
+Coaches pair Bluetooth chest straps and armbands in Chrome, assign each strap to an athlete once, and run the class from one shared screen. No hub, no receiver, and no app to install.
 
 ## Features
 
