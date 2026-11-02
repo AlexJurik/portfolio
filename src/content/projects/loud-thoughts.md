@@ -2,7 +2,7 @@
 name: "Loud Thoughts"
 date: "2026"
 logo: "../../assets/loud-thoughts.png"
-order: 5
+order: 7
 links: [{label: "loudthoughts.jurik.dev", url: "https://loudthoughts.jurik.dev/"}]
 ---
 

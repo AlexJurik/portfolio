@@ -2,7 +2,7 @@
 name: "Submind"
 date: "2026"
 logo: "../../assets/submind.png"
-order: 2
+order: 4
 links: [{label: "submind.jurik.dev", url: "https://submind.jurik.dev/"}]
 ---
 
