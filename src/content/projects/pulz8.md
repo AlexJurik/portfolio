@@ -16,11 +16,11 @@ Coaches pair Bluetooth chest straps and armbands in Chrome, assign each strap to
 - **Live Class Board**: Each athlete gets a tile with % of max heart rate, BPM, and zone, readable from across the room.
 - **Session Recording**: Saved sessions show duration, average and peak heart rate, time in each zone, and each athlete's heart-rate curve.
 - **Athlete Profiles**: Straps remember their athlete, with personal max heart rate and zones reused every session.
-- **Installable App**: Add it to a desktop or Android home screen and get reminders for the next session.
+- **Installable PWA**: Install it as a progressive web app on a desktop or Android home screen and get reminders for the next session.
 
 ## Technology Stack
 
-- **Frontend**: Preact, Vite, and Web Bluetooth
+- **Frontend**: Preact, Vite, and Web Bluetooth as a PWA
 - **Backend**: Hono on Cloudflare Workers with D1
 - **Landing Page**: Eleventy
 - **Payments**: Stripe

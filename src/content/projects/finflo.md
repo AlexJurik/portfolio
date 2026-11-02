@@ -17,10 +17,11 @@ FinFlo projects your balance 3, 6, 12, or 24 months ahead using transparent, det
 - **Multi-Account Tracking**: Keep main, secondary, savings, and business accounts in one ledger, with transfers between them.
 - **CSV Import and Custom Categories**: Bring in transactions from a CSV template and organize them with your own categories, icons, and colours.
 - **Monthly Email Reports**: Get a summary of the last month and its top insights on a day you choose.
+- **Installable PWA**: Install it as a progressive web app on desktop or mobile.
 
 ## Technology Stack
 
-- **Frontend**: React, Tailwind CSS, shadcn/ui, and Recharts on Cloudflare Pages
+- **Frontend**: React, Tailwind CSS, shadcn/ui, and Recharts as a PWA on Cloudflare Pages
 - **Backend**: FastAPI on Cloudflare Python Workers
 - **Database**: Cloudflare D1
 - **Auth**: Google OAuth 2.0
